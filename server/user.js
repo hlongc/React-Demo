@@ -81,7 +81,7 @@ Router.get('/info', (req, res) => {
 })
 
 function md5Pwd(pwd){
-	const salt = 'woxiangheleiqingxiazaiyiqi520!@#'
+	const salt = 'henghenghahei!@#'
 	return utils.md5(utils.md5(pwd+salt))
 }
 
