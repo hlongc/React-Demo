@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { NavBar } from 'antd-mobile'
+import { NavBar, Button } from 'antd-mobile'
 import {Switch, Route} from 'react-router-dom'
 import NavLinkBar from '../navlink/navlink'
 import Boss from '../../component/boss/boss'
@@ -20,6 +20,15 @@ class Msg extends React.Component{
 )
 
 class Dashboard extends React.Component{
+  constructor(props) {
+    super(props)
+    this.test = this.test.bind(this)
+  }
+
+  test() {
+    console.log('测试一下点击事件')
+  }
+
   render() {
     const user = this.props.user
     const pathname = this.props.location.pathname
@@ -65,7 +74,7 @@ class Dashboard extends React.Component{
             ))}
           </Switch>
         </div>
-        <NavLinkBar data={navList}></NavLinkBar>
+        {/* <NavLinkBar data={navList}></NavLinkBar> */}
       </div>
     )
   }

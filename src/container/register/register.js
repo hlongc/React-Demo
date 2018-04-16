@@ -4,32 +4,25 @@ import { List, InputItem, WhiteSpace, Button, Radio } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { register } from '../../redux/user.redux'
 import { Redirect } from 'react-router-dom'
+import imoocForm from '../../component/imooc-form/imooc-form'
 
 @connect(
   state => state.user,
   { register }
 )
-
+@imoocForm
 class Register extends React.Component{
   constructor(props) {
     super(props)
-    this.state = {
-      user: '',
-      pwd: '',
-      repwd: '',
-      type: 'boss'
-    }
     this.userRegister = this.userRegister.bind(this)
   }
 
-  handelChange(key, val) {
-    this.setState({
-      [key]: val
-    })
+  componentDidMount() {
+    this.props.handleChange('type', 'boss')
   }
 
   userRegister() {
-    this.props.register(this.state)
+    this.props.register(this.props.state)
   }
 
   render() {
@@ -41,26 +34,26 @@ class Register extends React.Component{
         <List>
           { this.props.msg ? <p className="errNotie">{this.props.msg}</p> : null }
           <InputItem
-            onChange={v=>this.handelChange('user', v)}
+            onChange={v=>this.props.handleChange('user', v)}
           >用户名</InputItem>
           <WhiteSpace/>
           <InputItem
             type='password'
-            onChange={v=>this.handelChange('pwd', v)}
+            onChange={v=>this.props.handleChange('pwd', v)}
           >密码</InputItem>
           <WhiteSpace/>
           <InputItem
             type='password'
-            onChange={v=>this.handelChange('repwd', v)}
+            onChange={v=>this.props.handleChange('repwd', v)}
           >确认密码</InputItem>
           <WhiteSpace/>
           <RadioItem 
-            checked={this.state.type !== 'boss'}
-            onChange={v=>this.handelChange('type', 'genius')}
+            checked={this.props.state.type !== 'boss'}
+            onChange={v=>this.props.handleChange('type', 'genius')}
           >牛人</RadioItem>
           <RadioItem 
-            checked={this.state.type === 'boss'}
-            onChange={v=>this.handelChange('type', 'boss')}
+            checked={this.props.state.type === 'boss'}
+            onChange={v=>this.props.handleChange('type', 'boss')}
           >BOSS</RadioItem>
           <WhiteSpace/>
           <Button type="primary" onClick={this.userRegister}>注册</Button>

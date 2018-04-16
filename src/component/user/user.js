@@ -15,10 +15,20 @@ class User extends React.Component{
     super(props)
     this.logout = this.logout.bind(this)
   }
+
   logout() {
-    browserCookie.erase('userid')
-    this.props.userLogout()
+    const alert = Modal.alert
+    alert('注销', '确认退出登录吗???', [
+      { text: '取消', onPress: () => console.log('cancel') },
+      {
+        text: '确认', onPress: () => {
+          browserCookie.erase('userid')
+          this.props.userLogout()
+        }
+      }
+    ])
   }
+
   render() {
     const alert = Modal.alert
     const props = this.props
@@ -39,12 +49,7 @@ class User extends React.Component{
           </Item>
         </List>
         <WhiteSpace></WhiteSpace> 
-        <Button type='primary' onClick={() => alert('注销', '确认退出登录?', [
-          { text: 'Cancel', onPress: () => console.log('cancel') },
-          { text: 'Ok', onPress: () => this.logout },
-        ])}
-        >退出登录</Button>       
-        {/* <Button onClick={this.logout}>退出登录</Button> */}
+        <Button type='primary' onClick={this.logout}>退出登录</Button>
       </div>
     ):<Redirect to={this.props.redirectTo} />
   }
